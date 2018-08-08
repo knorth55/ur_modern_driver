@@ -21,16 +21,19 @@
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
+  <remap from="/arm_controller/joint_states" to="/joint_states" />
   <!-- driver -->
-  <node name="ur_driver" pkg="ur_modern_driver" type="ur_driver" output="screen">
-  <!-- copy the specified IP address to be consistant with ROS-Industrial spec. -->
-    <param name="prefix" type="str" value="$(arg prefix)" />
-    <param name="robot_ip_address" type="str" value="$(arg robot_ip)" />
-    <param name="min_payload" type="double" value="$(arg min_payload)" />
-    <param name="max_payload" type="double" value="$(arg max_payload)" />
-    <param name="max_velocity" type="double" value="$(arg max_velocity)" />
-    <param name="servoj_time" type="double" value="$(arg servoj_time)" />
-	<param name="base_frame" type="str" value="$(arg base_frame)"/>
-    <param name="tool_frame" type="str" value="$(arg tool_frame)"/>
-  </node>
+  <group ns="arm_controller" >
+    <node name="ur_driver" pkg="ur_modern_driver" type="ur_driver" output="screen">
+    <!-- copy the specified IP address to be consistant with ROS-Industrial spec. -->
+      <param name="prefix" type="str" value="$(arg prefix)" />
+      <param name="robot_ip_address" type="str" value="$(arg robot_ip)" />
+      <param name="min_payload" type="double" value="$(arg min_payload)" />
+      <param name="max_payload" type="double" value="$(arg max_payload)" />
+      <param name="max_velocity" type="double" value="$(arg max_velocity)" />
+      <param name="servoj_time" type="double" value="$(arg servoj_time)" />
+      <param name="base_frame" type="str" value="$(arg base_frame)"/>
+      <param name="tool_frame" type="str" value="$(arg tool_frame)"/>
+    </node>
+  </group>
 </launch>
